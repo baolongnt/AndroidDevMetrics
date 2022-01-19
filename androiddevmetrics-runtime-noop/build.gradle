@@ -3,7 +3,6 @@ import org.aspectj.bridge.MessageHandler
 import org.aspectj.tools.ajc.Main
 
 apply plugin: 'com.android.library'
-apply plugin: 'com.github.dcendents.android-maven'
 
 buildscript {
     repositories {
@@ -75,44 +74,6 @@ android.libraryVariants.all { variant ->
 
 group = GROUP
 version = VERSION_NAME
-
-install {
-    repositories.mavenInstaller {
-        pom {
-            project {
-                packaging 'aar'
-                groupId GROUP
-                artifactId "androiddevmetrics-runtime-noop"
-
-                name "AndroidDevMetrics Runtime"
-                description POM_DESCRIPTION
-                url POM_URL
-
-                licenses {
-                    license {
-                        name POM_LICENCE_NAME
-                        url POM_LICENCE_URL
-                        Distribution POM_LICENCE_DIST
-                    }
-                }
-
-                developers {
-                    developer {
-                        id POM_DEVELOPER_ID
-                        name POM_DEVELOPER_NAME
-                        email POM_DEVELOPER_EMAIL
-                    }
-                }
-
-                scm {
-                    url POM_SCM_URL
-                    connection POM_SCM_CONNECTION
-                    developerConnection POM_SCM_DEV_CONNECTION
-                }
-            }
-        }
-    }
-}
 
 task sourcesJar(type: Jar) {
     from android.sourceSets.main.java.srcDirs
