@@ -1,6 +1,5 @@
 apply plugin: 'kotlin'
 apply plugin: 'com.bmuschko.nexus'
-apply plugin: 'com.jfrog.bintray'
 
 targetCompatibility = JavaVersion.VERSION_1_7
 sourceCompatibility = JavaVersion.VERSION_1_7
@@ -60,30 +59,4 @@ extraArchive {
     sources = true
     tests = true
     javadoc = true
-}
-
-// Bintray
-bintray {
-    // Global gradle.properties
-    user = project.hasProperty('BINTRAY_USER') ? project.getProperty('BINTRAY_USER') : ""
-    key = project.hasProperty('BINTRAY_KEY') ? project.getProperty('BINTRAY_KEY') : ""
-
-    configurations = ['archives']
-    pkg {
-        repo = 'maven'
-        name = 'androiddevmetrics-plugin'
-        desc = POM_DESCRIPTION
-        websiteUrl = POM_URL
-        vcsUrl = GIT_URL
-        licenses = ["Apache-2.0"]
-        publish = true
-        publicDownloadNumbers = true
-        version {
-            desc = POM_DESCRIPTION
-            gpg {
-                sign = true
-                passphrase = project.hasProperty('BINTRAY_GPG_PASSWORD') ? project.getProperty('BINTRAY_GPG_PASSWORD') : ""
-            }
-        }
-    }
 }

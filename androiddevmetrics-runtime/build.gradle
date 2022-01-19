@@ -3,7 +3,6 @@ import org.aspectj.bridge.MessageHandler
 import org.aspectj.tools.ajc.Main
 
 apply plugin: 'com.android.library'
-apply plugin: 'com.jfrog.bintray'
 apply plugin: 'com.github.dcendents.android-maven'
 
 buildscript {
@@ -19,7 +18,6 @@ buildscript {
 
 repositories {
     google()
-    maven { url 'https://dl.bintray.com/frogermcs/maven/' }
 }
 
 dependencies {
@@ -119,32 +117,6 @@ install {
                     connection POM_SCM_CONNECTION
                     developerConnection POM_SCM_DEV_CONNECTION
                 }
-            }
-        }
-    }
-}
-
-// Bintray
-bintray {
-    // Global gradle.properties
-    user = project.hasProperty('BINTRAY_USER') ? project.getProperty('BINTRAY_USER') : ""
-    key = project.hasProperty('BINTRAY_KEY') ? project.getProperty('BINTRAY_KEY') : ""
-
-    configurations = ['archives']
-    pkg {
-        repo = 'maven'
-        name = 'androiddevmetrics-runtime'
-        desc = POM_DESCRIPTION
-        websiteUrl = POM_URL
-        vcsUrl = GIT_URL
-        licenses = ["Apache-2.0"]
-        publish = true
-        publicDownloadNumbers = true
-        version {
-            desc = POM_DESCRIPTION
-            gpg {
-                sign = true
-                passphrase = project.hasProperty('BINTRAY_GPG_PASSWORD') ? project.getProperty('BINTRAY_GPG_PASSWORD') : ""
             }
         }
     }
