@@ -25,7 +25,7 @@ class AndroidDevMetricsPlugin: Plugin<Project> {
             project.dependencies.add("releaseCompile", "com.frogermcs.androiddevmetrics:androiddevmetrics-runtime-noop:0.7")
             project.dependencies.add("debugCompile", "com.frogermcs.androiddevmetrics:androiddevmetrics-runtime:0.7")
             project.dependencies.add("debugCompile", "org.aspectj:aspectjrt:1.8.8")
-            project.dependencies.add("compile", "com.android.support:support-v4:26.1.0")
+            project.dependencies.add("compile", "androidx.appcompat:appcompat:1.2.0")
 
             val log = project.logger
             val variants: DomainObjectSet<BaseVariant>
