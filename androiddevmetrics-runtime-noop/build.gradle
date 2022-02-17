@@ -11,18 +11,18 @@ buildscript {
         google()
     }
     dependencies {
-        classpath 'org.aspectj:aspectjtools:1.8.8'
+        classpath 'org.aspectj:aspectjtools:1.9.7'
     }
 }
 
 dependencies { }
 
 android {
-    compileSdkVersion = 28
+    compileSdkVersion = 31
 
     defaultConfig {
         minSdkVersion 14
-        targetSdkVersion 28
+        targetSdkVersion 30
     }
 
 
@@ -43,7 +43,8 @@ android.libraryVariants.all { variant ->
     JavaCompile javaCompile = variant.javaCompileProvider.get()
     javaCompile.doLast {
         String[] args = ["-showWeaveInfo",
-                         "-1.5",
+                         "-1.8",
+                         "-progress",
                          "-inpath", javaCompile.destinationDir.toString(),
                          "-aspectpath", javaCompile.classpath.asPath,
                          "-d", javaCompile.destinationDir.toString(),

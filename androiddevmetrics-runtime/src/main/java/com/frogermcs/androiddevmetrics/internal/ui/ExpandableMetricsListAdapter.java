@@ -2,17 +2,18 @@ package com.frogermcs.androiddevmetrics.internal.ui;
 
 import android.content.res.Resources;
 import android.text.Html;
+import android.util.Log;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
 import android.widget.BaseExpandableListAdapter;
 import android.widget.TextView;
-
 import com.frogermcs.androiddevmetrics.R;
 import com.frogermcs.androiddevmetrics.internal.MetricDescription;
 import com.frogermcs.androiddevmetrics.internal.MetricDescriptionTreeItem;
 
 import java.util.ArrayList;
+import java.util.Collections;
 import java.util.List;
 
 /**
@@ -20,11 +21,31 @@ import java.util.List;
  */
 public class ExpandableMetricsListAdapter extends BaseExpandableListAdapter {
 
+    private static final String TAG = ExpandableMetricsListAdapter.class.getSimpleName();
+
     private final List<MetricDescription> metricDescriptionList = new ArrayList<>();
 
     public void updateMetrics(List<MetricDescription> metricDescriptions) {
         metricDescriptionList.clear();
         metricDescriptionList.addAll(metricDescriptions);
+        // Show in descending order of total time
+        // Collections.sort(metricDescriptionList);
+    }
+
+    boolean sortToggle;
+
+    public void toggleSort() {
+        Log.d(TAG, "toggleSort(): " + sortToggle);
+        Collections.sort(metricDescriptionList, (o1, o2) -> {
+            if (sortToggle) {
+                return (int) (o2.totalInitTime - o1.totalInitTime);
+            } else {
+                return (int) (o1.startTime- o2.startTime);
+            }
+
+        });
+        sortToggle = !sortToggle;
+        notifyDataSetChanged();
     }
 
     @Override

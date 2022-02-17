@@ -11,6 +11,7 @@ import java.util.Set;
 public class InitMetric {
 
     public Class<?> cls;
+    public long startTimeMillis = 0;
     public long initTimeMillis = 0;
     public int instanceNo = 0;
     public String threadName = "";
@@ -61,12 +62,14 @@ public class InitMetric {
     public String toString() {
         if (Proxy.isProxyClass(cls)) {
             return "InitMetric{" +
+                    "startTimeMillis=" + startTimeMillis +
                     "initTimeMillis=" + initTimeMillis +
                     ", cls=" + Arrays.asList(cls.getInterfaces()) +
                     ", args=" + args +
                     '}';
         } else {
             return "InitMetric{" +
+                    "startTimeMillis=" + startTimeMillis +
                     "initTimeMillis=" + initTimeMillis +
                     ", cls=" + cls.getName() +
                     ", args=" + args +

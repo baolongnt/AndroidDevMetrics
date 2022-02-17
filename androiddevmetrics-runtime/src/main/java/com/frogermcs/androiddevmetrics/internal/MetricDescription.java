@@ -10,11 +10,13 @@ import java.util.Set;
 /**
  * Created by Miroslaw Stanek on 25.01.2016.
  */
-public class MetricDescription extends MetricDescriptionTreeItem {
+public class MetricDescription extends MetricDescriptionTreeItem implements Comparable<MetricDescription> {
     public final List<MetricDescriptionTreeItem> descriptionTreeItems = new ArrayList<>();
 
     public String className;
     public String formattedInitTime;
+    public long startTime;
+    public long totalInitTime;
 
     public MetricDescription() {
     }
@@ -26,7 +28,14 @@ public class MetricDescription extends MetricDescriptionTreeItem {
                 initMetric.getInitTimeWithoutArgs(),
                 initMetric.getThreadName());
         metricDescription.initDescriptionsTree(initMetric.args, 0, "");
+        metricDescription.startTime = initMetric.startTimeMillis;
+        metricDescription.totalInitTime = initMetric.getTotalInitTime();
         return metricDescription;
+    }
+
+    @Override
+    public int compareTo(MetricDescription o) {
+        return (int) (o.totalInitTime - this.totalInitTime);
     }
 
     private void formatInitTime(long overallInitTime, long noArgsInitTime, String threadName) {

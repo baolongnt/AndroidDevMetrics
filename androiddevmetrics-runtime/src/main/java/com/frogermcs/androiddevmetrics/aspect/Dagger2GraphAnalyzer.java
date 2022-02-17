@@ -63,12 +63,12 @@ public class Dagger2GraphAnalyzer {
         Class<?> cls = codeSignature.getDeclaringType();
 
         if (codeSignature instanceof ConstructorSignature) {
-            InitManager.getInstance().addInitMetric(cls, joinPoint.getArgs(), took);
+            InitManager.getInstance().addInitMetric(cls, joinPoint.getArgs(), start, took);
         }
 
         if (isMethodWithReturnType(codeSignature)) {
             if (result != null) {
-                InitManager.getInstance().addInitMetric(result.getClass(), joinPoint.getArgs(), took);
+                InitManager.getInstance().addInitMetric(result.getClass(), joinPoint.getArgs(), start, took);
             }
         }
 

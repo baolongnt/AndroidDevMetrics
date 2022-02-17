@@ -1,13 +1,12 @@
 package com.frogermcs.androiddevmetrics.internal.ui;
 
 import android.os.Bundle;
-import android.support.v4.app.Fragment;
-import android.support.v4.app.FragmentActivity;
-import android.support.v4.app.FragmentPagerAdapter;
-import android.support.v4.view.ViewPager;
 import android.view.View;
 import android.widget.Button;
-
+import androidx.fragment.app.Fragment;
+import androidx.fragment.app.FragmentActivity;
+import androidx.fragment.app.FragmentPagerAdapter;
+import androidx.viewpager.widget.ViewPager;
 import com.frogermcs.androiddevmetrics.R;
 import com.frogermcs.androiddevmetrics.internal.ui.fragment.ActivitiesMetricsFragment;
 import com.frogermcs.androiddevmetrics.internal.ui.fragment.Dagger2MetricsFragment;
@@ -84,6 +83,7 @@ public class MetricsActivity extends FragmentActivity {
             @Override
             public void onClick(View v) {
                 vpMetrics.setCurrentItem(1);
+                dagger2MetricsFragment.toggleSort();
             }
         });
 

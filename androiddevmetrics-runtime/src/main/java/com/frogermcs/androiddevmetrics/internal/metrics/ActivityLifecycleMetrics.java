@@ -1,10 +1,9 @@
 package com.frogermcs.androiddevmetrics.internal.metrics;
 
 import android.app.Activity;
-import android.support.annotation.NonNull;
-import android.support.v7.view.WindowCallbackWrapper;
 import android.view.Window;
-
+import androidx.annotation.NonNull;
+import androidx.appcompat.view.WindowCallbackWrapper;
 import com.frogermcs.androiddevmetrics.internal.ActivityMetricDescription;
 import com.frogermcs.androiddevmetrics.internal.metrics.model.FpsDropMetric;
 import com.frogermcs.androiddevmetrics.internal.ui.MetricsActivity;

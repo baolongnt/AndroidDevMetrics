@@ -13,8 +13,8 @@ dependencies {
     implementation gradleApi()
     implementation localGroovy()
     implementation 'com.android.tools.build:gradle:7.0.3'
-    implementation 'org.aspectj:aspectjtools:1.8.8'
-    implementation 'org.aspectj:aspectjrt:1.8.8'
+    implementation 'org.aspectj:aspectjtools:1.9.7'
+    implementation 'org.aspectj:aspectjrt:1.9.7'
     // implementation "org.jetbrains.kotlin:kotlin-stdlib:1.6.10"
     testImplementation "junit:junit:4.12"
 }

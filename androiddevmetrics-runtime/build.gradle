@@ -7,11 +7,10 @@ apply plugin: 'com.android.library'
 buildscript {
     repositories {
         google()
-        jcenter()
         mavenCentral()
     }
     dependencies {
-        classpath 'org.aspectj:aspectjtools:1.8.8'
+        classpath 'org.aspectj:aspectjtools:1.9.7'
     }
 }
 
@@ -20,17 +19,16 @@ repositories {
 }
 
 dependencies {
-    implementation 'org.aspectj:aspectjrt:1.8.8'
-    implementation 'com.android.support:support-compat:28.0.0'
-    implementation 'com.android.support:appcompat-v7:28.0.0'
+    implementation 'org.aspectj:aspectjrt:1.9.7'
+    implementation "androidx.appcompat:appcompat:1.2.0"
 }
 
 android {
-    compileSdkVersion = 28
+    compileSdkVersion = 31
 
     defaultConfig {
         minSdkVersion 14
-        targetSdkVersion 28
+        targetSdkVersion 30
     }
 
 
@@ -50,15 +48,20 @@ android {
 android.libraryVariants.all { variant ->
     JavaCompile javaCompile = variant.javaCompileProvider.get()
     javaCompile.doLast {
+        def aspectPath = javaCompile.classpath.asFileTree.filter { !(it.canonicalPath.contains("play-services") && !it.canonicalPath.contains("jetified-play-services")) }.asPath
         String[] args = ["-showWeaveInfo",
-                         "-1.5",
+                         "-1.8",
+                         "-log", "${project.name}.runtime.aspect-${System.currentTimeMillis()}.log",
+                         "-progress",
                          "-inpath", javaCompile.destinationDir.toString(),
-                         "-aspectpath", javaCompile.classpath.asPath,
+                         "-aspectpath", aspectPath,
                          "-d", javaCompile.destinationDir.toString(),
                          "-classpath", javaCompile.classpath.asPath]
 
+        println("***** ajc...")
         MessageHandler handler = new MessageHandler(true);
         new Main().run(args, handler)
+        println("... Done *****")
 
         def log = project.logger
         for (IMessage message : handler.getMessages(null, true)) {
@@ -70,7 +73,7 @@ android.libraryVariants.all { variant ->
                     break;
                 case IMessage.WARNING:
                 case IMessage.INFO:
-                    log.info message.message, message.thrown
+                    log.error message.message, message.thrown
                     break;
                 case IMessage.DEBUG:
                     log.debug message.message, message.thrown
